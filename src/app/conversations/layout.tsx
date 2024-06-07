@@ -1,10 +1,13 @@
 import React from 'react'
+import Sidebar from '../_components/sidebar/Sidebar'
 
-const conversationLayout = ({children}: {children: React.ReactNode}) => {
+const conversationLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className='h-full w-full flex justify-center bg-gray-200'>
+    <Sidebar>
+      <div className='h-full w-full flex justify-center bg-gray-200'>
         {children}
-    </div>
+      </div>
+    </Sidebar>
   )
 }
 
