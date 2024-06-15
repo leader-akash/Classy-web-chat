@@ -5,7 +5,7 @@ export default function Home() {
    <div>
     This page is authenticated
     <UserButton 
-      afterSignOutUrl="/"
+      afterSignOutUrl="/sign-in"
     />
    </div>
   );
