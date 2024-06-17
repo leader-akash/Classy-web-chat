@@ -6,13 +6,13 @@ import ConversationList from '@/app/conversations/_components/ConversationList';
 
 const Sidebar = async ({children}: {children: React.ReactNode}) => {
 
-  // const {currentUserPrisma} = await getCurrentUser();
+  const {currentUserPrisma} = await getCurrentUser();
 
   const conversations = await getConversations();
   return (
     <div className='h-full w-screen flex'>
       <aside className='h-full min-w-[300px] bg-zinc-400'>
-        <DesktopSidebarHeader />
+        <DesktopSidebarHeader currentUser={currentUserPrisma}/>
         <ConversationList
           conversations={conversations}
         />
