@@ -13,8 +13,7 @@ interface DesktopSidebarHeaderProps {
 const DesktopSidebarHeader = ({currentUser}: DesktopSidebarHeaderProps) => {
   return (
     <div>
-        <NewContactSheet  handleAddContact={() => {}}/>
-        <NewChatSheet  currentUser={currentUser}/>
+        {/* <NewChatSheet  currentUser={currentUser}/> */}
     </div>
   )
 }
