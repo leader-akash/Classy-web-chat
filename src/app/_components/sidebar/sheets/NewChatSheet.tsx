@@ -13,8 +13,9 @@ import { ArrowLeft } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import NewContactSheet from "./NewContactSheet";
+import UserList from "../../UserList";
 
 interface NewChatSheetProps {
   currentUser: User & {
@@ -25,21 +26,21 @@ interface NewChatSheetProps {
 const NewChatSheet = ({ currentUser }: NewChatSheetProps) => {
   const [searchText, setSearchText] = useState<string>("");
   const [isModelOpen, setIsModalOpen] = useState(false);
-  const [contacts, setContacts] = useState<User[]>([])
+  const [contacts, setContacts] = useState<User[]>([]);
 
-  useEffect(()=>{
-    if(currentUser.following !== undefined){
-      setContacts(currentUser?.following)
+  useEffect(() => {
+    if (currentUser.following !== undefined) {
+      setContacts(currentUser?.following);
     }
-  },[currentUser])
+  }, [currentUser]);
 
   const handleAddContact = (contacts: User[]) => {
-    setContacts(contacts)
-  }
+    setContacts(contacts);
+  };
 
   const handleRemoveContact = (newContacts: User[]) => {
-    setContacts(contacts)
-  }
+    setContacts(newContacts);
+  };
 
   return (
     <div>
@@ -47,13 +48,13 @@ const NewChatSheet = ({ currentUser }: NewChatSheetProps) => {
 
       <Sheet>
         <SheetTrigger>
-            <Image
-              className="hover:cursor-pointer "
-              src={"/images/NewChat.svg"}
-              alt="New chat"
-              width={24}
-              height={24}
-            />
+          <Image
+            className="hover:cursor-pointer "
+            src={"/images/NewChat.svg"}
+            alt="New chat"
+            width={24}
+            height={24}
+          />
         </SheetTrigger>
         <SheetContent side="left" className="w-[340px] sm:w-540px] p-0">
           <SheetHeader className="bg-primary">
@@ -84,18 +85,37 @@ const NewChatSheet = ({ currentUser }: NewChatSheetProps) => {
             </div>
 
             <button className="flex m-6 relative justify-center items-center">
-              <Avatar  className="flex w-12 h-12"> 
+              <Avatar className="w-12 h-12">
                 <AvatarImage src="/images/Group.svg" className="" />
 
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
 
               <div className="ml-4 text-left">
-                <NewContactSheet 
-                  handleAddContact={handleAddContact}
-                />
+                <NewContactSheet handleAddContact={handleAddContact} />
               </div>
             </button>
+
+            <button
+              className="flex m-6 relative items-center"
+              onClick={() => setIsModalOpen(true)}
+            >
+              <Avatar className="w-12 h-12 flex">
+                <AvatarImage src="/images/Community.svg" />
+                <AvatarFallback>GR</AvatarFallback>
+              </Avatar>
+
+              <div className="ml-4 text-left">
+                <h4 className="text-[1rem]">New Group</h4>
+              </div>
+            </button>
+
+            <div className="ml-12 my-5 text-primary font-light">CONTACTS</div>
+
+            <UserList
+              contacts={contacts}
+              handleRemoveContact={handleRemoveContact}
+            />
           </ScrollArea>
         </SheetContent>
       </Sheet>
