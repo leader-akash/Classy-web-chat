@@ -29,15 +29,15 @@ const MessageBox = ({data, isLast}: MessageBoxProps) => {
     <div className={clsx('flex mb-[2px] ', isOwn && 'justify-end items-start')}>
       {
         !isOwn && 
-        <div className='ml-16 flex items-start'>
+        <div className='ml-16 flex items-start '>
             <img src='/images/MessageBubbleTriangleWhite.svg'
-            className='transform scale-x-[-1] items-start'
+            className='transform scale-x-[-1] items-start '
             />
         </div>
       }
 
       <div className={clsx('flex flex-col', isOwn && 'items-end')}>
-        <div className={clsx('text-sm w-fit overflow-hidden', isOwn ? 'bg-[#d1f4cc] text-black' : 'bg-gray-100', data?.image ? 'rounded-[3px] ' : 'rounded-[7px] rounded-tr-[0px] py-2 px-3 shadow-lg shadow-gray-300 shadow-bottom')}>
+        <div className={clsx('text-sm w-fit overflow-hidden', isOwn ? 'bg-[#d1f4cc] text-black' : 'bg-gray-100', data?.image ? 'rounded-[3px]' : 'rounded-[7px] rounded-tr-[0px] py-2 px-3 shadow-lg shadow-gray-300 shadow-bottom')}>
             {
                 data?.image ? (
                     <Image 

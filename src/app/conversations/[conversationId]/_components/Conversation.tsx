@@ -23,7 +23,13 @@ const Conversation = ({conversation, currentUserPrisma, messages}: ConversationP
   return (
     <div className="h-full w-full ">
         <div className="h-full w-full flex flex-col">
-            <Header />
+            <Header 
+                conversation = {conversation}
+                isInCall={isInCall}
+                currentUserPrisma={currentUserPrisma}
+                setIsInCall={setIsInCall}
+
+            />
 
             <Body initialMessages={messages} isInCall={isInCall} />
 
