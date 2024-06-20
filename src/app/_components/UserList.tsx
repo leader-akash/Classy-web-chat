@@ -13,7 +13,7 @@ const UserList = ({ contacts, handleRemoveContact }: UserListProps) => {
       <div className="px-5">
             <div className="flex-col">
                 {
-                    contacts.length > 0 ? (
+                    contacts?.length > 0 ? (
                         contacts.map((item) => 
                             <UserBox 
                                 key={item.id}

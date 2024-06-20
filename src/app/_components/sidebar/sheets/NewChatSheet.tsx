@@ -44,10 +44,10 @@ const NewChatSheet = ({ currentUser }: NewChatSheetProps) => {
 
   return (
     <div>
-      {currentUser !== undefined && <div>Create a group</div>}
+      {/* {currentUser !== undefined && <div>Create a group</div>} */}
 
       <Sheet>
-        <SheetTrigger>
+        <SheetTrigger className="flex items-center">
           <Image
             className="hover:cursor-pointer "
             src={"/images/NewChat.svg"}
