@@ -20,18 +20,18 @@ const StatusButton = ({
   hasStory,
 }: StatusButtonProps) => {
 
-    const AvatarTailwind = hasStory ? "border-green-400 rounded-full" : ''
+    const AvatarTailwind = hasStory ? "border-green-400 border-2 rounded-full" : ''
 
   return (
     <div className="flex relative w-full pt-5 pl-4">
-      <Avatar>
+      <Avatar className={AvatarTailwind}>
         <AvatarImage src={user?.profileImageUrl || undefined} />
         <AvatarFallback>
           {user?.username?.charAt(0)?.toUpperCase()}
         </AvatarFallback>
       </Avatar>
 
-      {hasStory && ( //change true to variable
+      {!hasStory && ( //change true to variable
         <span
           className="
                      absolute flex rounded-full bg-[#00a884] top-11 left-12 ring-2 ring-white h-[14px] w-[14px] items-center justify-center
@@ -57,7 +57,7 @@ const StatusSidebarButton = ({ user }: StatusSidebarButtonProps) => {
 
   const { toast } = useToast();
   const [hasStory, setHasStory] = useState(
-    user?.statusImageUrl !== "" ? true : false
+    user?.statusImageUrl !== null ? true : false
   );
 
   const toggleShowStory = () => {
@@ -76,12 +76,12 @@ const StatusSidebarButton = ({ user }: StatusSidebarButtonProps) => {
   };
 
   useEffect(() => {
-    setHasStory(user?.statusImageUrl !== "" ? true : false);
+    setHasStory(user?.statusImageUrl !== null ? true : false);
   }, [user?.statusImageUrl, hasStory]);
 
   return (
     <div>
-      {hasStory ? (
+      {!hasStory ? (
         <div>
           <button onClick={toggleShowStory}>
             <StatusButton
