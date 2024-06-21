@@ -1,8 +1,9 @@
 import { useConversation } from '@/app/_hooks/useConversation'
 import { FullMessageType } from '@/app/_types'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import MessageBox from './MessageBox'
+import MediaRoom from './MediaRoom'
 
 interface BodyProps {
     initialMessages: FullMessageType[],
@@ -10,9 +11,20 @@ interface BodyProps {
 }
 
 const Body = ({initialMessages, isInCall}: BodyProps) => {
-
+    
+    const bottomRef = useRef<HTMLDivElement>(null)
     const [messages, setMessages] = useState(initialMessages)
     const {conversationId} = useConversation();
+
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: 'instant' })
+    }, [isInCall])
+
+    useEffect(() => {
+        bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    }, [messages])
+
 
     const conversationApi = async() => {
         try{
@@ -32,6 +44,16 @@ const Body = ({initialMessages, isInCall}: BodyProps) => {
     <div className='flex-1 overflow-y-auto bg-pink-200 w-full'>
 
         {
+            isInCall && (
+                <MediaRoom 
+                    chatId={conversationId}
+                    video={true}
+                    audio={true}
+                />
+            )
+        }
+
+        {
             !isInCall && (
                 <div className='pt-24'>
                     {
@@ -47,7 +69,7 @@ const Body = ({initialMessages, isInCall}: BodyProps) => {
                     </div>
             )
         }
-        
+        <div ref={bottomRef} />
     </div>
   )
 }

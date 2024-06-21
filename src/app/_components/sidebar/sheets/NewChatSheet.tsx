@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import NewContactSheet from "./NewContactSheet";
 import UserList from "../../UserList";
+import GroupChatModal from "../modals/GroupChatModal";
 
 interface NewChatSheetProps {
   currentUser: User & {
@@ -25,7 +26,7 @@ interface NewChatSheetProps {
 
 const NewChatSheet = ({ currentUser }: NewChatSheetProps) => {
   const [searchText, setSearchText] = useState<string>("");
-  const [isModelOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [contacts, setContacts] = useState<User[]>([]);
 
   useEffect(() => {
@@ -44,7 +45,14 @@ const NewChatSheet = ({ currentUser }: NewChatSheetProps) => {
 
   return (
     <div>
-      {/* {currentUser !== undefined && <div>Create a group</div>} */}
+      {currentUser !== undefined &&(
+        <GroupChatModal 
+         users={currentUser?.following}
+         isOpen={isModalOpen}
+         onClose={() => setIsModalOpen(false)}
+        />
+       )
+       }
 
       <Sheet>
         <SheetTrigger className="flex items-center">

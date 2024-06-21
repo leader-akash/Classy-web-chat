@@ -6,6 +6,7 @@ import { useClerk } from '@clerk/nextjs'
 import { Conversation, User } from '@prisma/client'
 import axios from 'axios'
 import React, { useMemo, useState } from 'react'
+import CallButton from './CallButton'
 
 interface HeaderProps {
     conversation: Conversation & {
@@ -136,7 +137,10 @@ const Header = ({conversation, currentUserPrisma, isInCall, setIsInCall}: Header
                     </div>
 
                     <div className='ml-auto'>
-                            To Do: Call button
+                           <CallButton 
+                            isInCall={isInCall}
+                            setIsInCall={setIsInCall}
+                           />
                     </div>
 
                     </div>
