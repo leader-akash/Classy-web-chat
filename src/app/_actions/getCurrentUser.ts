@@ -12,8 +12,8 @@ interface CurrentUser {
 }
 
 const getCurrentUser = async (): Promise<CurrentUser> => {
+    
     const currentUserClerk = await currentUser();
-    console.log('currentUSer', currentUserClerk)
 
     if (currentUserClerk === null) {
         throw new Error('Unauthorized');

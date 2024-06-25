@@ -6,8 +6,11 @@ import { Input } from '@/components/ui/input'
 import { useClerk } from '@clerk/nextjs'
 import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import ConversationBox from './ConversationBox'
+import { pusherClient } from '@/lib/pusher'
+import { removePlusSign } from '@/lib/phoneNumberUtil'
+import {find} from "lodash";
 
 interface ConversationListProps {
   conversations: FullConversationType[]
@@ -20,6 +23,57 @@ const ConversationList: React.FC<ConversationListProps> = ({ conversations }) =>
   const router = useRouter();
   const { user } = useClerk();
   const {conversationId, isOpen} = useConversation();
+
+  const pusherKey = useMemo(() => {
+    if(user?.phoneNumbers[0]?.phoneNumber){
+      return null
+    }
+
+    const mobileNumber = user?.phoneNumbers[0]?.phoneNumber
+
+    const phoneNumber = removePlusSign(mobileNumber);
+    return phoneNumber;
+  },[user?.phoneNumbers[0]?.phoneNumber])
+
+  useEffect(() => {
+    if(!pusherKey)
+    return;
+
+    pusherClient.subscribe(pusherKey);
+
+// it will work for both one to one or group chats
+    const updateHandler = (conversation: FullConversationType) => { 
+      setItems((current) => current?.map((currentConversation)=> {
+        if(currentConversation?.id === conversation?.id){
+          return{
+            ...currentConversation, 
+            messages: conversation?.messages
+          };
+        }
+        return currentConversation;
+      }))
+    }
+
+    const newHandler = (conversation: FullConversationType) => {
+      setItems((current) => {
+        if(find(current), {id: conversation?.id}){
+          return current;
+        }
+        return [conversation, ...current]
+      })
+    }
+
+    const removeHandler = (conversation: FullConversationType) => {
+      setItems((current) => {
+          return [...current.filter((conv) => conv?.id !== conversation?.id)]
+      })
+  }
+
+    pusherClient?.bind('conversation:update', updateHandler)
+    pusherClient?.bind('conversation:new', newHandler)
+    pusherClient?.bind('conversation:remove', removeHandler)
+
+  },[pusherKey, router])
 
   return (
     <aside className='h-[550px] overflow-y-auto'>

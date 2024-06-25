@@ -1,12 +1,16 @@
-import { UserButton } from "@clerk/nextjs";
+'use client'
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(()=>{
+    router.push('./conversations')
+  },[])
   return (
    <div>
-    This page is authenticated
-    <UserButton 
-      afterSignOutUrl="/sign-in"
-    />
+   
    </div>
   );
 }
