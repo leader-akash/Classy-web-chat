@@ -41,7 +41,7 @@ const Body = ({initialMessages, isInCall}: BodyProps) => {
 
 
   return (
-    <div className='flex-1 overflow-y-auto bg-pink-200 w-full'>
+    <div className='flex-1 overflow-y-auto w-full bg-image'>
 
         {
             isInCall && (

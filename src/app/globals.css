@@ -12,6 +12,11 @@
     outline: none;
   }
 
+  .bg-image{
+    background-image: url('/images/bg-img.avif');
+    object-fit: contain;
+  }
+
   @layer base {
     :root {
       --background: 0 0% 100%;
