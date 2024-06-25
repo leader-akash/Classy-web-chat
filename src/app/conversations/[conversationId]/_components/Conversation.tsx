@@ -1,14 +1,14 @@
 "use client"
 
 import { FullMessageType } from "@/app/_types"
-import { Conversation, User } from "@prisma/client"
+import { Conversation as UserConversatoins, User } from "@prisma/client"
 import { useState } from "react"
 import Body from "./Body"
 import Header from "./Header"
 import Form from "./Form"
 
 interface ConversationProps {
-    conversation: Conversation & {
+    conversation: UserConversatoins & {
         users: User[]
     },
     currentUserPrisma: User,

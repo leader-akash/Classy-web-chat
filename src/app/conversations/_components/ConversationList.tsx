@@ -10,7 +10,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import ConversationBox from './ConversationBox'
 import { pusherClient } from '@/lib/pusher'
 import { removePlusSign } from '@/lib/phoneNumberUtil'
-import {find} from "lodash";
+// import {find} from "lodash";
 
 interface ConversationListProps {
   conversations: FullConversationType[]
@@ -56,9 +56,9 @@ const ConversationList: React.FC<ConversationListProps> = ({ conversations }) =>
 
     const newHandler = (conversation: FullConversationType) => {
       setItems((current) => {
-        if(find(current), {id: conversation?.id}){
-          return current;
-        }
+        // if(find(current), {id: conversation?.id}){
+        //   return current;
+        // }
         return [conversation, ...current]
       })
     }
