@@ -7,6 +7,8 @@ import { Conversation, User } from '@prisma/client'
 import axios from 'axios'
 import React, { useMemo, useState } from 'react'
 import CallButton from './CallButton'
+import { Trash } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 interface HeaderProps {
     conversation: Conversation & {
@@ -19,6 +21,7 @@ interface HeaderProps {
 
 const Header = ({conversation, currentUserPrisma, isInCall, setIsInCall}: HeaderProps) => {
 
+    const router = useRouter();
     const [disableFollowButton, setDisableFollowButton] = useState(false);
 
     const otherUser = useOtherUser(conversation);
@@ -52,6 +55,17 @@ const Header = ({conversation, currentUserPrisma, isInCall, setIsInCall}: Header
         }
         catch(err){
             console.log('err in header follow click', err )
+        }
+    }
+
+    const handleDeleteConversation = async() => {
+        try{
+            const res = axios.delete(`/api/conversatins/${conversation?.id}`)
+
+            router.replace('/conversations')
+        }
+        catch(err){
+            console.log('error while deleting conversatio', err)
         }
     }
 
@@ -136,11 +150,12 @@ const Header = ({conversation, currentUserPrisma, isInCall, setIsInCall}: Header
                         </div>
                     </div>
 
-                    <div className='ml-auto'>
+                    <div className='ml-auto items-center flex'>
                            <CallButton 
                             isInCall={isInCall}
                             setIsInCall={setIsInCall}
                            />
+                           
                     </div>
 
                     </div>
@@ -148,6 +163,7 @@ const Header = ({conversation, currentUserPrisma, isInCall, setIsInCall}: Header
                 )
             }
         </div>
+        <Trash className='cursor-pointer text-zinc-500 w-10 h-10 p-2 hover:bg-zinc-200 rounded-sm' onClick={handleDeleteConversation}/>
         
     </div>
   )

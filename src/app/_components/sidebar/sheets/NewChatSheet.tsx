@@ -64,7 +64,7 @@ const NewChatSheet = ({ currentUser }: NewChatSheetProps) => {
             height={24}
           />
         </SheetTrigger>
-        <SheetContent side="left" className="w-[340px] sm:w-540px] p-0">
+        <SheetContent side="left" className="w-[340px] sm:w-540px] p-0 overflow-y-auto">
           <SheetHeader className="bg-primary">
             <div className="flex mt-14 mb-3 items-center">
               <SheetClose asChild>

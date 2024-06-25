@@ -12,6 +12,7 @@ interface CurrentUser {
 }
 
 const getCurrentUser = async (): Promise<CurrentUser> => {
+    
     const currentUserClerk = await currentUser();
 
     if (currentUserClerk === null) {
